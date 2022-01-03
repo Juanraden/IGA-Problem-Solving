@@ -20,7 +20,9 @@ public class BallControl : MonoBehaviour
     {
         MoveBall();
 
-        ArrowMovement();
+        //ArrowMovement();
+
+        ClickMovement();
     }
 
     void MoveBall()
@@ -69,5 +71,15 @@ public class BallControl : MonoBehaviour
             if (direction == Vector2.zero || direction.y > Vector2.up.y)
                 direction = Vector2.up;
         }
+    }
+
+    private void ClickMovement()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 currentPos = transform.position;
+
+        if (Input.GetMouseButtonDown(0))
+            if (Vector2.Distance(mousePos, currentPos) > 0.1f)
+                direction = (mousePos - currentPos).normalized;
     }
 }
