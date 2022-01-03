@@ -1,4 +1,4 @@
 # IGA-Problem-Solving
-Problem 7
+Problem 8
 
-Buatlah lingkaran bisa menabrak kotak yang sudah tersebar, simpan dan tunjukkan jumlah kotak yang sudah ditabrak sebagai skor. Kotak yang telah tertabrak dihilangkan dari layar.
+Munculkan lagi kotak yang sudah tertabrak, 3 detik setelah tertabrak dan di posisi acak. Letak munculnya kotak tidak boleh terletak di dalam lingkaran.
