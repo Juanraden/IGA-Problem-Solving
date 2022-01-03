@@ -20,6 +20,24 @@ public class BallControl : MonoBehaviour
     {
         MoveBall();
 
+        ArrowMovement();
+    }
+
+    void MoveBall()
+    {
+        rigidBody2D.velocity = direction * speed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            direction = Vector2.Reflect(direction, collision.contacts[0].normal);
+        }
+    }
+
+    private void ArrowMovement()
+    {
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && direction.x > Vector2.left.x)
         {
             direction += Vector2.left;
@@ -49,19 +67,6 @@ public class BallControl : MonoBehaviour
             direction += Vector2.up;
             if (direction == Vector2.zero)
                 direction = Vector2.up;
-        }
-    }
-
-    void MoveBall()
-    {
-        rigidBody2D.velocity = direction * speed;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Wall")
-        {
-            direction = Vector2.Reflect(direction, collision.contacts[0].normal);
         }
     }
 }
