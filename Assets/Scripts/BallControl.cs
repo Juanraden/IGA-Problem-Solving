@@ -15,12 +15,8 @@ public class BallControl : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
 
         direction = Random.insideUnitCircle.normalized;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        MoveBall();
+        Invoke("MoveBall", 2);
     }
 
     void MoveBall()
