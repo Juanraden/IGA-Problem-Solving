@@ -4,6 +4,26 @@ using UnityEngine;
 
 public class SquareSpawner : MonoBehaviour
 {
+    //Fungsi Singleton
+    private static SquareSpawner _instance = null;
+    public static SquareSpawner Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<SquareSpawner>();
+
+                if (_instance == null)
+                {
+                    Debug.LogError("Fatal Error: SquareSpawner not Found");
+                }
+            }
+
+            return _instance;
+        }
+    }
+
     public GameObject squarePrefab;
 
     public int minSquares = 5;
@@ -64,5 +84,11 @@ public class SquareSpawner : MonoBehaviour
         if (hits != null)
             return true;
         return false;
+    }
+
+    public void DestroySquare(GameObject square)
+    {
+        square.SetActive(false);
+        squaresPool.Add(square);
     }
 }

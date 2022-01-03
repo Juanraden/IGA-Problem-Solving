@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8534933304194909559}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Wall
+  m_TagString: Square
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,13 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallControl : MonoBehaviour
 {
     private Rigidbody2D rigidBody2D;
     private Vector2 direction;
+    private int _score = 0;
+
+    public Text ScoreText;
 
     public float speed = 5;
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+
+        private set
+        {
+            _score = value;
+            ScoreText.text = "Score: " + _score;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +49,16 @@ public class BallControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        string tag = collision.gameObject.tag;
+        if (tag == "Wall" || tag == "Square")
         {
             direction = Vector2.Reflect(direction, collision.contacts[0].normal);
+        }
+
+        if (tag == "Square")
+        {
+            Score++;
+            SquareSpawner.Instance.DestroySquare(collision.gameObject);
         }
     }
 
