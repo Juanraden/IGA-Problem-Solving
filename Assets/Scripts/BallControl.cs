@@ -16,7 +16,7 @@ public class BallControl : MonoBehaviour
 
         direction = Random.insideUnitCircle.normalized;
 
-        Invoke("MoveBall", 2);
+        Invoke("MoveBall", 1);
     }
 
     void MoveBall()
