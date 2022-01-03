@@ -1,4 +1,5 @@
 # IGA-Problem-Solving
-Problem 8
+Problem 9
 
-Munculkan lagi kotak yang sudah tertabrak, 3 detik setelah tertabrak dan di posisi acak. Letak munculnya kotak tidak boleh terletak di dalam lingkaran.
+Kembangkan hasil pekerjaan menjadi sebuah game sebisa kalian, pastikan kalian juga memikirkan hal-hal yang bisa membuat sebuah game yang bagus, bukan hanya spesifikasi teknis yang diberikan.
+
