@@ -28,6 +28,7 @@ public class SquareSpawner : MonoBehaviour
 
     public int minSquares = 5;
     public int maxSquares = 10;
+    public float respawnDelay = 3f;
 
     private Bounds spawnArea;
     private Vector2 spawnPosition;
@@ -43,16 +44,7 @@ public class SquareSpawner : MonoBehaviour
 
         for (int i = 0; i < spawnCount; i++)
         {
-            do
-            {
-                float x = Random.Range(spawnArea.min.x, spawnArea.max.x);
-                float y = Random.Range(spawnArea.min.y, spawnArea.max.y);
-
-                spawnPosition = new Vector2(x, y);
-            }
-            while (CheckOverlap(spawnPosition, squarePrefab));
-
-            SpawnSquare(spawnPosition);
+            SpawnSquare();
         }
     }
 
@@ -70,10 +62,19 @@ public class SquareSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnSquare(Vector2 position)
+    private void SpawnSquare()
     {
+        do
+        {
+            float x = Random.Range(spawnArea.min.x, spawnArea.max.x);
+            float y = Random.Range(spawnArea.min.y, spawnArea.max.y);
+
+            spawnPosition = new Vector2(x, y);
+        }
+        while (CheckOverlap(spawnPosition, squarePrefab));
+
         GameObject square = getFromPool();
-        square.transform.position = position;
+        square.transform.position = spawnPosition;
         square.SetActive(true);
     }
 
@@ -89,6 +90,12 @@ public class SquareSpawner : MonoBehaviour
     public void DestroySquare(GameObject square)
     {
         square.SetActive(false);
+        ReturnToPool(square);
+    }
+
+    public void ReturnToPool(GameObject square)
+    {
         squaresPool.Add(square);
+        Invoke("SpawnSquare", respawnDelay);
     }
 }
