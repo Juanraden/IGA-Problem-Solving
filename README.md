@@ -1,5 +1,4 @@
 # IGA-Problem-Solving
-Problem 9
+Problem 10
 
-Kembangkan hasil pekerjaan menjadi sebuah game sebisa kalian, pastikan kalian juga memikirkan hal-hal yang bisa membuat sebuah game yang bagus, bukan hanya spesifikasi teknis yang diberikan.
-
+Buat satu build berisi menu selection untuk mengakses semua build.
