@@ -5,31 +5,41 @@ using UnityEngine.UI;
 
 public class ScoreController : MonoBehaviour
 {
-    private int score;
+    private int currentScore;
 
-    public Text ScoreText;
+    public Text ScoreValue;
+    public int squareScore;
+    public int coinScore;
 
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
+        currentScore = 0;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        ScoreText.text = "Score: " + GetScore().ToString();
+        ScoreValue.text = GetCurrentScore().ToString();
     }
 
-    public float GetScore()
+    public float GetCurrentScore()
     {
-        return score;
+        return currentScore;
     }
 
-    public void IncreaseScore(int increment)
+    public void IncreaseCurrentScore(int increment)
     {
-        score += increment;
+        currentScore += increment;
     }
 
-
+    public void FinishScoring()
+    {
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            PlayerPrefs.SetInt("HighScore", highScore);
+        }
+    }
 }

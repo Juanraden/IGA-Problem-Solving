@@ -26,21 +26,18 @@ public class SquareSpawner : MonoBehaviour
 
     public GameObject squarePrefab;
 
-    public int minSquares = 5;
-    public int maxSquares = 10;
+    public int spawnCount = 10;
     public float respawnDelay = 3f;
 
     private Bounds spawnArea;
     private Vector2 spawnPosition;
 
-    private List<GameObject> squaresPool = new List<GameObject>();
+    private List<Square> squaresPool = new List<Square>();
 
     // Start is called before the first frame update
     private void Start()
     {
         spawnArea = GetComponent<SpriteRenderer>().bounds;
-
-        int spawnCount = Random.Range(minSquares, maxSquares);
 
         for (int i = 0; i < spawnCount; i++)
         {
@@ -48,22 +45,30 @@ public class SquareSpawner : MonoBehaviour
         }
     }
 
-    private GameObject getFromPool()
+    private Square getFromPool()
     {
+        Square square;
+
         if (squaresPool.Count == 0)
         {
-            return Instantiate(squarePrefab);
+            GameObject newSquare = Instantiate(squarePrefab);
+            square = newSquare.GetComponent<Square>();
         }
         else
         {
-            GameObject square = squaresPool[0];
+            square = squaresPool[0];
             squaresPool.RemoveAt(0);
-            return square;
         }
+        return square;
     }
 
     private void SpawnSquare()
     {
+        if (GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         do
         {
             float x = Random.Range(spawnArea.min.x, spawnArea.max.x);
@@ -73,9 +78,8 @@ public class SquareSpawner : MonoBehaviour
         }
         while (CheckOverlap(spawnPosition, squarePrefab));
 
-        GameObject square = getFromPool();
-        square.transform.position = spawnPosition;
-        square.SetActive(true);
+        Square square = getFromPool();
+        square.Activate(spawnPosition);
     }
 
     private bool CheckOverlap(Vector2 pos, GameObject go)
@@ -87,15 +91,15 @@ public class SquareSpawner : MonoBehaviour
         return false;
     }
 
-    public void DestroySquare(GameObject square)
-    {
-        square.SetActive(false);
-        ReturnToPool(square);
-    }
-
-    public void ReturnToPool(GameObject square)
+    public void ReturnToPool(Square square)
     {
         squaresPool.Add(square);
         Invoke("SpawnSquare", respawnDelay);
+    }
+
+    public void ReturnToPool2(Square square)
+    {
+        squaresPool.Add(square);
+        SpawnSquare();
     }
 }

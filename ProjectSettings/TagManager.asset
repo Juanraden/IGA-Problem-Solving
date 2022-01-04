@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Square
+  - Coin
   layers:
   - Default
   - TransparentFX
